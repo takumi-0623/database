@@ -66,6 +66,25 @@ def delete_memo(memo_id):
     db.session.commit()
     return redirect(url_for('index'))
 
+# 編集フォームを表示 (GET)
+@app.route('/memo/<uuid:memo_id>/edit', methods=['GET'])
+def show_edit_memo(memo_id):
+    memo = Memo.query.get_or_404(str(memo_id))
+    return render_template('edit_memo.html', memo=memo)
+
+# データを更新 (POST)
+@app.route('/memo/<uuid:memo_id>/edit', methods=['POST'])
+def update_memo(memo_id):
+    memo = Memo.query.get_or_404(str(memo_id))
+    
+    # フォームから送られた内容で上書き
+    memo.title = request.form['title']
+    memo.content = request.form['content']
+    
+    db.session.commit()
+    # 更新後は詳細画面に戻る
+    return redirect(url_for('view_memo', memo_id=memo.id))
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

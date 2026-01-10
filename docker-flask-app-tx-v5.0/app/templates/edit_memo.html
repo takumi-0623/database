@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>メモの編集 - {{ memo.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title-border">メモの編集</h1>
+
+        <form action="{{ url_for('update_memo', memo_id=memo.id) }}" method="POST">
+            <div class="form-group">
+                <label>タイトル</label>
+                <input type="text" name="title" value="{{ memo.title }}" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label>内容</label>
+                <textarea name="content" rows="10" required class="form-control">{{ memo.content }}</textarea>
+            </div>
+            
+            <div class="actions">
+                <button type="submit" class="button">更新を保存する</button>
+                <a href="{{ url_for('view_memo', memo_id=memo.id) }}" class="button secondary">キャンセル</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
