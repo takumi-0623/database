@@ -1,0 +1,11 @@
+<div id="create_memo" class="container">
+    <h1 class="title-border">新規ユーザー登録</h1>
+    <form method="POST" class="modern-form">
+        <label>ユーザー名</label>
+        <input type="text" name="username" required>
+        <label>パスワード</label>
+        <input type="password" name="password" required>
+        <button type="submit" class="button">新規登録</button>
+    </form>
+    <a href="{{ url_for('login') }}">ログインページに戻る</a>
+</div>
