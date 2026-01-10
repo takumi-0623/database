@@ -2,28 +2,25 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>メモの編集 - {{ memo.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大学の課題 メモる君 - 編集</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/create_memo.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1 class="title-border">メモの編集</h1>
+    <div id="create_memo" class="container"> <h1 class="title-border">課題メモ - 編集</h1>
 
-        <form action="{{ url_for('update_memo', memo_id=memo.id) }}" method="POST">
-            <div class="form-group">
-                <label>タイトル</label>
-                <input type="text" name="title" value="{{ memo.title }}" required class="form-control">
-            </div>
-            <div class="form-group">
-                <label>内容</label>
-                <textarea name="content" rows="10" required class="form-control">{{ memo.content }}</textarea>
-            </div>
+        <form action="{{ url_for('update_memo', memo_id=memo.id) }}" method="POST" class="modern-form">
+            <label for="title">課題メモ名</label>
+            <input type="text" id="title" name="title" value="{{ memo.title }}" required>
             
-            <div class="actions">
-                <button type="submit" class="button">更新を保存する</button>
-                <a href="{{ url_for('view_memo', memo_id=memo.id) }}" class="button secondary">キャンセル</a>
-            </div>
+            <label for="content">メモ詳細 (授業名など)</label>
+            <textarea id="content" name="content" required>{{ memo.content }}</textarea>
+            
+            <button type="submit" class="button">変更を保存</button>
         </form>
+
+        <a href="{{ url_for('view_memo', memo_id=memo.id) }}" class="button">キャンセル</a>
     </div>
 </body>
 </html>
