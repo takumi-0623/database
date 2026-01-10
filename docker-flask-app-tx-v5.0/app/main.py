@@ -53,6 +53,8 @@ def create_memo():
     db.session.commit()
     return redirect(url_for('index'))
 
+# haneisareteru???
+
 # メモを削除
 # ===============================
 # エンドポイント /memo/(メモのID)/delete
