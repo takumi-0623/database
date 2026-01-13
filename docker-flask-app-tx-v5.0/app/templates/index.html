@@ -9,16 +9,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 <body>
-    <div class="user-info-bar">
-    <p>
-        <i class="fas fa-user"></i> 
-        ログイン中: <strong>{{ current_user.username }}</strong> さん
-    </p>
-    <a href="{{ url_for('logout') }}" class="logout-link">
-        <i class="fas fa-sign-out-alt"></i> ログアウト
-    </a>
-</div>
-
     <div id="index" class="container">
         <h1>大学の課題 メモる君</h1>
         <p class="sub-title">〜 課題を忘れないあなたのリマインダーアプリ 〜</p>
@@ -38,6 +28,9 @@
                 {% for memo in memos %}
                 <li class="card">
                     <a href="{{ url_for('view_memo', memo_id=memo.id) }}">{{ memo.title }}</a>
+                    {% if memo.deadline %}
+                <p class="deadline">⏰ 提出期限: {{ memo.deadline.strftime('%Y年%m月%d日 %H:%M') }}</p>
+                {% endif %}
                     <p class="small">作成日: {{ memo.created_at.strftime('%Y年 %m月 %d日 %H:%M') }}</p>
                 </li>
                 {% endfor %}
