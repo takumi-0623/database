@@ -2,17 +2,18 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>メモの編集 - {{ memo.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大学の課題 メモる君 - 編集</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/create_memo.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1 class="title-border">メモの編集</h1>
+    <div id="create_memo" class="container"> <h1 class="title-border">課題メモ - 編集</h1>
 
         <form action="{{ url_for('update_memo', memo_id=memo.id) }}" method="POST">
             <div class="form-group">
                 <label>タイトル</label>
-                <input type="text" name="title" value="{{ memo.title }}" required class="form-control">
+                <input type="text" id="title" name="title" value="{{ memo.title }}" required class="form-control">
             </div>
             <div class="form-group">
                 <label>提出期限</label>
@@ -21,7 +22,7 @@
             </div>
             <div class="form-group">
                 <label>内容</label>
-                <textarea name="content" rows="10" required class="form-control">{{ memo.content }}</textarea>
+                <textarea id="content" name="content" rows="10" required class="form-control">{{ memo.content }}</textarea>
             </div>
             
             <div class="actions">
