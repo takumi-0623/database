@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>締切管理室 - 新規作成</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/create_memo.css') }}">
+</head>
+<body>
+    <div id="create_memo" class="container">
+        <h1 class="title-border">課題メモ - 新規作成</h1>
+
+        <form action="{{ url_for('create_memo') }}" method="POST" class="modern-form">
+            <label for="title">授業名</label>
+<select id="title" name="title" required class="form-control">
+    <option value="" disabled selected>授業を選択してください</option>
+    {% for title in titles %}
+        <option value="{{ title }}">{{ title }}</option>
+    {% endfor %}
+</select>
+<p style="font-size: 0.8em; margin-top: 5px;">
+    ※リストにない場合は <a href="{{ url_for('manage_titles') }}">授業管理画面</a> で追加してください。
+</p>
+
+<script>
+function addNewTitle() {
+    const select = document.getElementById('title');
+    const newTitle = prompt("新しい授業名を入力してください:");
+    if (newTitle) {
+        // 新しい選択肢を一時的に追加して選択状態にする
+        const option = document.createElement('option');
+        option.value = newTitle;
+        option.text = newTitle;
+        select.add(option);
+        select.value = newTitle;
+    }
+}
+</script>
+            <label for="deadline">提出期限</label>
+            <input type="datetime-local" id="deadline" name="deadline">
+            <label for="content">メモ詳細 (授業名など)</label>
+            <textarea id="content" name="content" required></textarea>
+            <button type="submit" class="button">メモを保存</button>
+        </form>
+
+        <a href="{{ url_for('index') }}" class="button">メモ一覧に戻る</a>
+    </div>
+</body>
+</html>
