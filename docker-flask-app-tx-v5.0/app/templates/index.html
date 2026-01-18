@@ -2,50 +2,48 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>大学の課題 メモる君</title>
+    <title>締切管理室</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 <body>
-    <div class="user-info-bar">
-    <p>
-        <i class="fas fa-user"></i> 
-        ログイン中: <strong>{{ current_user.username }}</strong> さん
-    </p>
-    <a href="{{ url_for('logout') }}" class="logout-link">
-        <i class="fas fa-sign-out-alt"></i> ログアウト
-    </a>
-</div>
+    <nav class="user-info-bar">
+        <div class="user-info-content">
+            <p><i class="fas fa-university"></i> 管理室ログイン：<strong>{{ current_user.username }}</strong> 殿</p>
+            <a href="{{ url_for('logout') }}" class="logout-link">ログアウト</a>
+        </div>
+    </nav>
 
     <div id="index" class="container">
-        <h1>大学の課題 メモる君</h1>
-        <p class="sub-title">〜 課題を忘れないあなたのリマインダーアプリ 〜</p>
+        <header class="index-header">
+            <h1>締切管理室</h1>
+            <p class="sub-title">約束と締切は守りましょう</p>
 
-        <a href="{{ url_for('create_memo') }}" class="button">
-            <i class="fas fa-pencil-alt"></i> メモを作る
-        </a>
+            <a href="{{ url_for('create_memo') }}" class="button add-button">
+                <i class="fas fa-edit"></i> 新規課題を登録
+            </a>
+        </header>
 
-        <div class="memos">
-            <h2 class="title-border">メモった課題</h2>
-
-            {% if not memos %}
-                <p>まだメモがありません。</p>
-            {% endif %}
- 
-            <ul>
-                {% for memo in memos %}
-                <li class="card">
-                    <a href="{{ url_for('view_memo', memo_id=memo.id) }}">{{ memo.title }}</a>
-                    {% if memo.deadline %}
-                <p class="deadline">⏰ 提出期限: {{ memo.deadline.strftime('%Y年%m月%d日 %H:%M') }}</p>
+        <section class="memos-section">
+            <h2 class="title-border"><i class="fas fa-folder-open"></i> 登録タスク一覧</h2>
+            <div class="memo-list">
+                {% if not memos %}
+                    <div class="empty-state">現在、登録されているタスクはありません。</div>
                 {% endif %}
-                    <p class="small">作成日: {{ memo.created_at.strftime('%Y年 %m月 %d日 %H:%M') }}</p>
-                </li>
+                {% for memo in memos %}
+                <div class="card memo-card">
+                    <div class="card-info">
+                        <a href="{{ url_for('view_memo', memo_id=memo.id) }}" class="memo-title">{{ memo.title }}</a>
+                        {% if memo.deadline %}
+                        <p class="deadline"><i class="far fa-clock"></i> 提出期限：{{ memo.deadline.strftime('%Y/%m/%d %H:%M') }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="card-arrow"><i class="fas fa-chevron-right"></i></div>
+                </div>
                 {% endfor %}
-            </ul>
-        </div>
+            </div>
+        </section>
     </div>
 </body>
 </html>
