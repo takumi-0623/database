@@ -57,33 +57,35 @@
 
                 {% for memo in memos %}
                     {% if memo.content != "（授業名登録）" %}
-                    <div class="card memo-card">
-                        <div class="card-info">
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <a href="{{ url_for('view_memo', memo_id=memo.id) }}" class="memo-title">{{ memo.title }}</a>
-                                <span class="status-badge {{ 'done' if memo.status == '提出済み' else 'yet' }}" style="font-size: 0.7em; padding: 2px 8px; border-radius: 10px;">
-                                    {{ memo.status if memo.status else '未提出' }}
-                                </span>
-                            </div>
+                    <a href="{{ url_for('view_memo', memo_id=memo.id) }}" class="card-link" style="text-decoration: none; display: block;">
+                        <div class="card memo-card">
+                            <div class="card-info">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <span class="memo-title">{{ memo.title }}</span>
+                                    <span class="status-badge {{ 'done' if memo.status == '提出済み' else 'yet' }}" style="font-size: 0.7em; padding: 2px 8px; border-radius: 10px;">
+                                        {{ memo.status if memo.status else '未提出' }}
+                                    </span>
+                                </div>
 
-                            {% if memo.deadline %}
-                            <p class="deadline">
-                                <i class="far fa-clock"></i> 提出期限：{{ memo.deadline.strftime('%Y/%m/%d %H:%M') }}
-                            </p>
-                            {% endif %}
-                            <p class="small" style="font-size: 0.8em; color: #888; margin-top: 4px;">
-                                作成日: {{ memo.created_at.strftime('%Y/%m/%d %H:%M') }}
-                            </p>
-                        </div>
-                        <div class="card-arrow">
-                            <a href="{{ url_for('view_memo', memo_id=memo.id) }}" style="color: inherit;">
+                                {% if memo.deadline %}
+                                <p class="deadline">
+                                    <i class="far fa-clock"></i> 提出期限：{{ memo.deadline.strftime('%Y/%m/%d %H:%M') }}
+                                </p>
+                                {% endif %}
+                                <p class="small" style="font-size: 0.8em; color: #888; margin-top: 4px;">
+                                    作成日: {{ memo.created_at.strftime('%Y/%m/%d %H:%M') }}
+                                </p>
+                            </div>
+                            <div class="card-arrow">
                                 <i class="fas fa-chevron-right"></i>
-                            </a>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                     {% endif %}
                 {% endfor %}
             </div>
+            
+            
         </section>
     </div>
 </body>

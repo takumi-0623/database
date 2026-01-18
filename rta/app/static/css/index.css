@@ -37,3 +37,26 @@
 .memo-title { font-weight: bold; color: var(--tcu-dark) !important; font-size: 19px; }
 .deadline { font-size: 14px; color: #e67e22; margin-top: 8px; font-weight: bold; }
 .empty-state { text-align: center; padding: 40px; color: #95a5a6; border: 2px dashed #ddd; border-radius: 4px; }
+
+/* index.css の .status-badge 部分を書き換え */
+.status-badge {
+    font-size: 0.75em;
+    padding: 3px 12px;
+    border-radius: 20px; /* カプセル型 */
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    display: inline-block;
+}
+
+.status-badge.yet {
+    background-color: #e67e22; /* 警告色のオレンジ */
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(230, 126, 34, 0.2);
+}
+
+.status-badge.done {
+    background-color: #27ae60; /* 完了のグリーン */
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(39, 174, 96, 0.2);
+}
+

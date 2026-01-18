@@ -14,6 +14,16 @@
             <p style="font-size: 13px; color: #7f8c8d; margin-top: 5px;">管理室への参加</p>
         </div>
 
+                {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+      <div class="alert alert-{{ category }}" style="background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 4px; margin-bottom: 20px; border: 1px solid #f5c6cb; font-size: 14px;">
+          <i class="fas fa-exclamation-circle"></i> {{ message }}
+      </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
         <form method="POST" class="modern-form">
             <div style="background-color: var(--tcu-light); padding: 15px; border-radius: 4px; margin-bottom: 25px; font-size: 13px; border-left: 4px solid var(--tcu-main);">
                 <i class="fas fa-info-circle" style="color: var(--tcu-main);"></i> 

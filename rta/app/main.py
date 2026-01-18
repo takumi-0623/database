@@ -5,6 +5,7 @@ import os
 from uuid import UUID
 from datetime import datetime
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from flask import Flask, render_template, request, redirect, url_for, flash
 
 # .envファイルを読み込む
 load_dotenv()
@@ -68,14 +69,18 @@ def register():
         username = request.form.get('username')
         password = request.form.get('password')
         
+        # 1. 重複チェック
         if User.query.filter_by(username=username).first():
-            return "このユーザー名は既に使われています"
+            # ここでエラーを出し、ログイン画面ではなく「登録画面」へ戻す
+            flash('このユーザー名は既に使われています。別の名前を入力してください。', 'error')
+            return redirect(url_for('register'))
 
-        new_user = User(username=username, password=password)
+        # 2. 正常な登録処理
+        new_user = User(username=username)
+        new_user.set_password(password)
         db.session.add(new_user)
         db.session.commit()
         
-        # 自動ログイン
         login_user(new_user)
         return redirect(url_for('index'))
     
@@ -118,6 +123,8 @@ def create_memo():
     db.session.commit()
     return redirect(url_for('index'))
 
+
+
 # ログイン処理
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -126,13 +133,16 @@ def login():
         password = request.form.get('password')
         user = User.query.filter_by(username=username).first()
 
-        if user and user.password == password:
+        # 2. Userモデルに追加したcheck_passwordメソッドを呼び出す
+        if user and user.check_password(password):
             login_user(user)
             return redirect(url_for('index'))
         
-        return "ログインに失敗しました"
+        # 3. 失敗した時にメッセージを送ってログイン画面へリダイレクト
+        flash('ユーザー名またはパスワードが正しくありません。', 'error')
+        return redirect(url_for('login'))
+        
     return render_template('login.html')
-
 # ログアウト
 @app.route('/logout')
 @login_required
