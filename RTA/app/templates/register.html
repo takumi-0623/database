@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新規ユーザー登録 | 締切管理室</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h1 class="title-border" style="border-bottom: none; margin-bottom: 0;">新規ユーザー登録</h1>
+            <p style="font-size: 13px; color: #7f8c8d; margin-top: 5px;">管理室への参加</p>
+        </div>
+
+        <form method="POST" class="modern-form">
+            <div style="background-color: var(--tcu-light); padding: 15px; border-radius: 4px; margin-bottom: 25px; font-size: 13px; border-left: 4px solid var(--tcu-main);">
+                <i class="fas fa-info-circle" style="color: var(--tcu-main);"></i> 
+                アカウントを作成しましょう
+            </div>
+
+            <label for="username">ユーザー名 / User ID</label>
+            <input type="text" id="username" name="username" placeholder="例:takumi" required autofocus>
+            
+            <label for="password">パスワード / Password</label>
+            <input type="password" id="password" name="password" placeholder="8文字以上を推奨" required>
+            
+            <button type="submit" class="button" style="width: 100%; font-size: 16px;">
+                新規登録して利用を開始する
+            </button>
+        </form>
+
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; text-align: center;">
+            <p style="font-size: 13px; color: #666;">既にアカウントをお持ちですか？</p>
+            <a href="{{ url_for('login') }}" class="back-link">
+                <i class="fas fa-sign-in-alt"></i> ログインページに戻る
+            </a>
+        </div>
+    </div>
+</body>
+</html>

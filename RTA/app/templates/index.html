@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>締切管理室</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+    <nav class="user-info-bar">
+        <div class="user-info-content">
+            <p><i class="fas fa-university"></i> 管理室ログイン：<strong>{{ current_user.username }}</strong> 殿</p>
+            <a href="{{ url_for('logout') }}" class="logout-link">ログアウト</a>
+        </div>
+    </nav>
+
+    <div id="index" class="container">
+        <header class="index-header">
+            <h1>締切管理室</h1>
+            <p class="sub-title">約束と締切は守りましょう</p>
+
+            <a href="{{ url_for('create_memo') }}" class="button add-button">
+                <i class="fas fa-edit"></i> 新規課題を登録
+            </a>
+        </header>
+
+        <div class="view-tabs" style="margin-bottom: 25px; text-align: center;">
+            <a href="{{ url_for('index', view_status='未提出', sort=current_sort) }}" 
+               class="tab-link {{ 'active' if current_view == '未提出' }}">
+               <i class="fas fa-tasks"></i> 未提出
+            </a>
+            <a href="{{ url_for('index', view_status='提出済み', sort=current_sort) }}" 
+               class="tab-link {{ 'active' if current_view == '提出済み' }}" style="margin-left: 15px;">
+               <i class="fas fa-check-circle"></i> 提出済み
+            </a>
+        </div>
+
+        <section class="memos-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #5d627b; margin-bottom: 15px; padding-bottom: 5px;">
+                <h2 style="margin: 0; border: none;"><i class="fas fa-folder-open"></i> メモった課題</h2>
+                
+                <div class="sort-box">
+                    <i class="fas fa-sort" style="color: #5d627b;"></i>
+                    <select onchange="location.href=this.value;" style="padding: 4px; border-radius: 5px; border: 1px solid #ccc; font-size: 0.9em;">
+                        <option value="{{ url_for('index', sort='created_at', view_status=current_view) }}" {% if current_sort == 'created_at' %}selected{% endif %}>作成日順</option>
+                        <option value="{{ url_for('index', sort='deadline', view_status=current_view) }}" {% if current_sort == 'deadline' %}selected{% endif %}>締切が近い順</option>
+                        <option value="{{ url_for('index', sort='title', view_status=current_view) }}" {% if current_sort == 'title' %}selected{% endif %}>名前順</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="memo-list">
+                {% if not memos %}
+                    <div class="empty-state">まだメモがありません。</div>
+                {% endif %}
+
+                {% for memo in memos %}
+                    {% if memo.content != "（授業名登録）" %}
+                    <div class="card memo-card">
+                        <div class="card-info">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <a href="{{ url_for('view_memo', memo_id=memo.id) }}" class="memo-title">{{ memo.title }}</a>
+                                <span class="status-badge {{ 'done' if memo.status == '提出済み' else 'yet' }}" style="font-size: 0.7em; padding: 2px 8px; border-radius: 10px;">
+                                    {{ memo.status if memo.status else '未提出' }}
+                                </span>
+                            </div>
+
+                            {% if memo.deadline %}
+                            <p class="deadline">
+                                <i class="far fa-clock"></i> 提出期限：{{ memo.deadline.strftime('%Y/%m/%d %H:%M') }}
+                            </p>
+                            {% endif %}
+                            <p class="small" style="font-size: 0.8em; color: #888; margin-top: 4px;">
+                                作成日: {{ memo.created_at.strftime('%Y/%m/%d %H:%M') }}
+                            </p>
+                        </div>
+                        <div class="card-arrow">
+                            <a href="{{ url_for('view_memo', memo_id=memo.id) }}" style="color: inherit;">
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+</body>
+</html>

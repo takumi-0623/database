@@ -1,0 +1,39 @@
+.user-info-bar {
+    background-color: var(--tcu-main);
+    padding: 12px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.user-info-content {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    align-items: center;
+}
+.user-info-content p, .logout-link { color: white !important; font-size: 14px; font-weight: bold; }
+.logout-link { border: 2px solid white; padding: 4px 15px; border-radius: 4px; transition: 0.3s; }
+.logout-link:hover { background: white; color: var(--tcu-main) !important; }
+
+.index-header { text-align: center; margin-bottom: 40px; }
+.tcu-logo-text { font-size: 13px; font-weight: 900; letter-spacing: 3px; color: var(--tcu-main); margin-bottom: 5px; }
+.sub-portal { font-size: 16px; color: #95a5a6; font-weight: normal; }
+.sub-title { font-size: 14px; color: #7f8c8d; font-style: italic; margin-top: 10px; }
+
+.add-button { width: 100%; margin: 20px 0; border-radius: 4px; font-size: 18px; }
+
+.memo-card {
+    background: #fff;
+    border: 1px solid #e1e8ed;
+    border-left: 8px solid var(--tcu-main);
+    padding: 20px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+.memo-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.08); background-color: var(--tcu-light); }
+.memo-title { font-weight: bold; color: var(--tcu-dark) !important; font-size: 19px; }
+.deadline { font-size: 14px; color: #e67e22; margin-top: 8px; font-weight: bold; }
+.empty-state { text-align: center; padding: 40px; color: #95a5a6; border: 2px dashed #ddd; border-radius: 4px; }
