@@ -25,16 +25,21 @@
             </a>
         </header>
 
-        <div class="view-tabs" style="margin-bottom: 25px; text-align: center;">
-            <a href="{{ url_for('index', view_status='未提出', sort=current_sort) }}" 
-               class="tab-link {{ 'active' if current_view == '未提出' }}">
-               <i class="fas fa-tasks"></i> 未提出
-            </a>
-            <a href="{{ url_for('index', view_status='提出済み', sort=current_sort) }}" 
-               class="tab-link {{ 'active' if current_view == '提出済み' }}" style="margin-left: 15px;">
-               <i class="fas fa-check-circle"></i> 提出済み
-            </a>
-        </div>
+        <div class="view-status-selector">
+    <input type="radio" id="view_yet" name="view_status_radio" 
+           value="{{ url_for('index', view_status='未提出', sort=current_sort) }}" 
+           onchange="location.href=this.value;" {{ 'checked' if current_view == '未提出' }}>
+    <label for="view_yet" class="selector-label yet-label">
+        <i class="fas fa-tasks"></i> 未提出
+    </label>
+
+    <input type="radio" id="view_done" name="view_status_radio" 
+           value="{{ url_for('index', view_status='提出済み', sort=current_sort) }}" 
+           onchange="location.href=this.value;" {{ 'checked' if current_view == '提出済み' }}>
+    <label for="view_done" class="selector-label done-label">
+        <i class="fas fa-check-circle"></i> 提出済み
+    </label>
+</div>
 
         <section class="memos-section">
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #5d627b; margin-bottom: 15px; padding-bottom: 5px;">

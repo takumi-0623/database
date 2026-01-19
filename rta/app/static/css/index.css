@@ -60,3 +60,49 @@
     box-shadow: 0 2px 4px rgba(39, 174, 96, 0.2);
 }
 
+/* ステータス選択エリア全体 */
+.view-status-selector {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    background: #f8f9fa;
+    padding: 6px;
+    border-radius: 8px;
+    border: 1px solid #e1e8ed;
+}
+
+/* ラジオボタン本体（丸いポチ）を消す */
+.view-status-selector input[type="radio"] {
+    display: none;
+}
+
+/* ラベルをボタンに見せる */
+.selector-label {
+    flex: 1;
+    text-align: center;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #7f8c8d;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+}
+
+/* 「未提出」が選ばれた時：オレンジ（--tcu-mainに近い色） */
+#view_yet:checked + .yet-label {
+    background-color: #e67e22;
+    color: white;
+    box-shadow: 0 2px 8px rgba(230, 126, 34, 0.3);
+}
+
+/* 「提出済み」が選ばれた時：グリーン */
+#view_done:checked + .done-label {
+    background-color: #27ae60;
+    color: white;
+    box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3);
+}
+
+/* ホバー時の挙動 */
+.selector-label:hover {
+    background-color: rgba(0,0,0,0.05);
+}
