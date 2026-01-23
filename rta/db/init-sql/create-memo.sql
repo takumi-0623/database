@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS memo (
     content TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    deadline TIMESTAMP
+    deadline TIMESTAMP,
     user_id VARCHAR(36) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES "user" (id)
 );
